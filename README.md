@@ -65,9 +65,9 @@ This can be useful for performances optimizations or when it is difficult to obt
 Provider<String>.value(
   value: 'Hello World',
   child: Consumer<String>(
-    builder: (context, value) => Text(value);
+    builder: (context, value, child) => Text(value),
   ),
-)
+);
 ```
 
 ---
@@ -75,9 +75,9 @@ Provider<String>.value(
 Note that you can freely use multiple providers with different types together:
 
 ```dart
-Provider<int>(
+Provider<int>.value(
   value: 42,
-  child: Provider<String>(
+  child: Provider<String>.value(
     value: 'Hello World',
     child: // ...
   )
@@ -96,11 +96,11 @@ var value2 = Provider.of<String>(context);
 When injecting many values in big applications, `Provider` can rapidly become pretty nested:
 
 ```dart
-Provider<Foo>(
+Provider<Foo>.value(
   value: foo,
-  child: Provider<Bar>(
+  child: Provider<Bar>.value(
     value: bar,
-    child: Provider<Baz>(
+    child: Provider<Baz>.value(
       value: baz,
       child: someWidget,
     )
@@ -113,9 +113,9 @@ In that situation, we can use `MultiProvider` to improve the readability:
 ```dart
 MultiProvider(
   providers: [
-    Provider<Foo>(value: foo),
-    Provider<Bar>(value: bar),
-    Provider<Baz>(value: baz),
+    Provider<Foo>.value(value: foo),
+    Provider<Bar>.value(value: bar),
+    Provider<Baz>.value(value: baz),
   ],
   child: someWidget,
 )
